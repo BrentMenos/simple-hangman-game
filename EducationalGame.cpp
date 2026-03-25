@@ -9,6 +9,8 @@
 #include <cstdlib>
 #include <ctime>
 #include <algorithm>
+#include <fstream>
+#include <sstream>
 using namespace std;
 
 struct WordEntry {
@@ -17,32 +19,31 @@ struct WordEntry {
     string category;
 };
 
-vector<WordEntry> wordBank = {
-    { "Brent Menos", "Pogi", "Oat"},
-    {"elephant",  "Large gray animal with a trunk",       "Animals"},
-    {"dolphin",   "Smart ocean mammal",                   "Animals"},
-    {"penguin",   "Bird that cannot fly but can swim",    "Animals"},
-    {"giraffe",   "Tallest animal on land",               "Animals"},
-    {"kangaroo",  "Australian animal with a pouch",       "Animals"},
+vector<WordEntry> loadWordBank(string filename) {
+    vector<WordEntry> bank;
+    ifstream file(filename);
+    string line;
 
-    {"gravity",   "Force that pulls objects downward",    "Science"},
-    {"oxygen",    "Gas we breathe to survive",            "Science"},
-    {"molecule",  "Smallest unit of a chemical compound", "Science"},
-    {"volcano",   "Mountain that can erupt with lava",    "Science"},
-    {"eclipse",   "When one celestial body blocks another","Science"},
+    if (!file.is_open()) {
+        cout << "Error: Could not open " << filename << ". Using default word.\n";
+        return {{"apple", "A common red fruit", "Food"}};
+    }
 
-    {"keyboard",  "Used to type on a computer",           "Technology"},
-    {"internet",  "Global network of connected computers","Technology"},
-    {"software",  "Programs that run on a computer",      "Technology"},
-    {"database",  "Organized collection of data",         "Technology"},
-    {"compiler",  "Converts source code into machine code","Technology"},
+    while (getline(file, line)) {
+        stringstream ss(line);
+        string word, hint, category;
 
-    {"mountain",  "Very tall landform",                   "Geography"},
-    {"volcano",   "Fire mountain",                        "Geography"},
-    {"desert",    "Hot and very dry region",              "Geography"},
-    {"glacier",   "Slow-moving mass of ice",              "Geography"},
-    {"peninsula", "Land surrounded by water on three sides","Geography"},
-};
+        // Parsing the line (Assumes format: word,hint,category)
+        if (getline(ss, word, ',') && getline(ss, hint, ',') && getline(ss, category, ',')) {
+            bank.push_back({word, hint, category});
+        }
+    }
+
+    file.close();
+    return bank;
+}
+
+vector<WordEntry> wordBank;
 
 
 void drawHangman(int wrong) {
@@ -166,6 +167,7 @@ void howToPlay() {
 
 int main() {
     srand(static_cast<unsigned int>(time(0)));
+    wordBank = loadWordBank("wordbank.txt");
 
     cout << "\n  Welcome to Hangman!\n";
     cout << "  Guess the hidden word before the man is hanged.\n";
