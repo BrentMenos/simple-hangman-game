@@ -5,7 +5,7 @@
 
 using namespace std;
 
-void HangmanGame::drawHangman(int wrong) const {
+void HangmanGame::drawHangman(int wrong) {
     cout << "\n  +---+\n |   |\n";
     cout << " |   " << (wrong >= 1 ? "O" : " ") << "\n";
     cout << " |  " << (wrong >= 3 ? "/" : " ") << (wrong >= 2 ? "|" : " ") << (wrong >= 4 ? "\\" : " ") << "\n";
@@ -13,7 +13,7 @@ void HangmanGame::drawHangman(int wrong) const {
     cout << " |\n";
 }
 
-bool HangmanGame::isWordGuessed(const string& word, const vector<char>& guessed) const {
+bool HangmanGame::isWordGuessed(const string& word, const vector<char>& guessed) {
     for (char ch : word) {
         if (ch == ' ') continue; 
         if (find(guessed.begin(), guessed.end(), tolower(ch)) == guessed.end())
