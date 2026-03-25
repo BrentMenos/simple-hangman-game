@@ -12,12 +12,7 @@ add_executable(9348_Cplusplus
         .idea/modules.xml
         .idea/vcs.xml
         .idea/workspace.xml
-        EducationalGame.cpp
-        EducationalGame.h
         README.md
         main.cpp
-        main.h
         wordbank.cpp
-        wordbank.h
-        HangmanGame.cpp
-        HangmanGame.h)
+        HangmanGame.cpp)

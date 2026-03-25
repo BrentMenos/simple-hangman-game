@@ -7,10 +7,10 @@ using namespace std;
 
 void HangmanGame::drawHangman(int wrong) const {
     cout << "\n  +---+\n  |   |\n";
-    cout << "  |   " << (wrong >= 1 ? "O" : " ") << "\n";
-    cout << "  |  " << (wrong >= 3 ? "/" : " ") << (wrong >= 2 ? "|" : " ") << (wrong >= 4 ? "\\" : " ") << "\n";
-    cout << "  |  " << (wrong >= 5 ? "/" : " ") << " " << (wrong >= 6 ? "\\" : " ") << "\n";
-    cout << "  |\n";
+    cout << " |   " << (wrong >= 1 ? "O" : " ") << "\n";
+    cout << " |  " << (wrong >= 3 ? "/" : " ") << (wrong >= 2 ? "|" : " ") << (wrong >= 4 ? "\\" : " ") << "\n";
+    cout << " |  " << (wrong >= 5 ? "/" : " ") << " " << (wrong >= 6 ? "\\" : " ") << "\n";
+    cout << " |\n";
 }
 
 bool HangmanGame::isWordGuessed(const string& word, const vector<char>& guessed) const {
@@ -26,7 +26,7 @@ void HangmanGame::playRound(const WordEntry& entry) const {
     vector<char> guessedLetters;
     int wrongGuesses = 0;
 
-    cout << "\n  Category: " << entry.category << " | Hint: " << entry.hint << "\n";
+    cout << "\nCategory: " << entry.category << " | Hint: " << entry.hint << "\n";
 
     while (wrongGuesses < MAX_WRONG) {
         drawHangman(wrongGuesses);
@@ -38,7 +38,7 @@ void HangmanGame::playRound(const WordEntry& entry) const {
         }
 
         if (isWordGuessed(entry.word, guessedLetters)) {
-            cout << "\n\n  ★ WINNER! The word was: " << entry.word << " ★\n";
+            cout << "\n\n WINNER! The word was: " << entry.word << " \n";
             return;
         }
 
@@ -55,9 +55,9 @@ void HangmanGame::playRound(const WordEntry& entry) const {
         guessedLetters.push_back(guess);
         if (entry.word.find(guess) == string::npos && entry.word.find(toupper(guess)) == string::npos) {
             wrongGuesses++;
-            cout << "  ✗ Wrong!\n";
+            cout << " Wrong!\n";
         }
     }
     drawHangman(MAX_WRONG);
-    cout << "  ✗ Game Over! Word was: " << entry.word << "\n";
+    cout << " Game Over! Word was: " << entry.word << "\n";
 }
