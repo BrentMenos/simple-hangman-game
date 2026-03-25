@@ -10,7 +10,7 @@ WordBank::WordBank(const string& filename) {
     ifstream file(filename);
     string line;
     if (!file.is_open()) {
-        words.push_back({"Brent Menos", "Pogi", "Oat"}); // Default fallback
+        words.push_back({"Brent Menos", "Pogi", "Oat"});
     } else {
         while (getline(file, line)) {
             stringstream ss(line);

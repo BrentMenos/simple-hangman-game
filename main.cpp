@@ -17,8 +17,9 @@ public:
     }
 
     static void howToPlay() {
-        cout << "\nGuess letters to reveal the word. 6 mistakes allowed.\nPress Enter to return...";
-        cin.ignore(); cin.get();
+        cout << "\nGuess letters to reveal the word. 6 mistakes allowed.\nPress Enter to return";
+        cin.ignore();
+        cin.get();
     }
 };
 
