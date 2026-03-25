@@ -6,7 +6,7 @@
 using namespace std;
 
 void HangmanGame::drawHangman(int wrong) const {
-    cout << "\n  +---+\n  |   |\n";
+    cout << "\n  +---+\n |   |\n";
     cout << " |   " << (wrong >= 1 ? "O" : " ") << "\n";
     cout << " |  " << (wrong >= 3 ? "/" : " ") << (wrong >= 2 ? "|" : " ") << (wrong >= 4 ? "\\" : " ") << "\n";
     cout << " |  " << (wrong >= 5 ? "/" : " ") << " " << (wrong >= 6 ? "\\" : " ") << "\n";
