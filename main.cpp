@@ -24,24 +24,46 @@ public:
 };
 
 int main() {
-    srand(time(0));
-
-    WordBank myWordBank("wordbank.txt");
-
+    WordBank bank;
     HangmanGame game;
-
     int choice;
+
     do {
         GameInterface::showMenu();
         cin >> choice;
 
-        if (choice == 1) {
-            if (!myWordBank.isEmpty()) {
-                WordEntry randomWord = myWordBank.getRandomWord();
-                game.playRound(randomWord);
+        switch (choice) {
+            case 1: {
+                int diffChoice;
+                cout << "\nSelect Difficulty:\n";
+                cout << " 1. Easy\n 2. Medium\n 3. Hard\n";
+                cout << "Choice: ";
+                cin >> diffChoice;
+
+                string difficulty;
+                if (diffChoice == 1) {
+                    difficulty = "Easy";
+                } else if (diffChoice == 2) {
+                    difficulty = "Medium";
+                } else if (diffChoice == 3) {
+                    difficulty = "Hard";
+                } else {
+                    cout << "  Invalid choice. Defaulting to Easy.\n";
+                    difficulty = "Easy";
+                }
+
+                WordEntry chosenWord = bank.getRandomWord(difficulty);
+                game.playRound(chosenWord);
+                break;
             }
-        } else if (choice == 2) {
-            GameInterface::howToPlay();
+            case 2:
+                GameInterface::howToPlay();
+                break;
+            case 0:
+                cout << "\nThanks for playing! Goodbye.\n";
+                break;
+            default:
+                cout << "\nInvalid option. Please try again.\n";
         }
     } while (choice != 0);
 

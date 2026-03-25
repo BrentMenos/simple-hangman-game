@@ -6,25 +6,37 @@
 
 using namespace std;
 
-WordBank::WordBank(const string& filename) {
-    ifstream file(filename);
+WordBank::WordBank() {
+    ifstream file("wordbank.txt");
     string line;
-    if (!file.is_open()) {
-        words.push_back({"Brent Menos", "Pogi", "Oat"});
-    } else {
-        while (getline(file, line)) {
-            stringstream ss(line);
-            string w, h, c;
-            if (getline(ss, w, ',') && getline(ss, h, ',') && getline(ss, c, ',')) {
-                words.push_back({w, h, c});
-            }
+    while (getline(file, line)) {
+        stringstream ss(line);
+        string w, h, c, d;
+
+        if (getline(ss, w, ',') && getline(ss, h, ',') && getline(ss, c, ',') && getline(ss, d)) {
+            words.push_back({w, h, c, d});
         }
-        file.close();
     }
+    if (words.empty()) {
+        words.push_back({"Default", "No file found", "Error", "Easy"});
+    }
+    srand(time(0));
 }
 
-WordEntry WordBank::getRandomWord() const {
-    return words[rand() % words.size()];
+WordEntry WordBank::getRandomWord(string targetDifficulty) {
+    vector<WordEntry> filteredWords;
+
+    for (const WordEntry& entry : words) {
+        if (entry.difficulty == targetDifficulty) {
+            filteredWords.push_back(entry);
+        }
+    }
+
+    if (filteredWords.empty()) {
+        return words[rand() % words.size()];
+    }
+
+    return filteredWords[rand() % filteredWords.size()];
 }
 
 bool WordBank::isEmpty() const {

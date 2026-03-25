@@ -12,7 +12,7 @@
 class HangmanGame {
 private:
     const int MAX_WRONG = 6;
-
+public:
     void drawHangman(int wrong) const;
     bool isWordGuessed(const std::string& word, const std::vector<char>& guessed) const;
 

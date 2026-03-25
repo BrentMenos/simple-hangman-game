@@ -12,6 +12,7 @@ struct WordEntry {
     std::string word;
     std::string hint;
     std::string category;
+    std::string difficulty;
 };
 
 class WordBank {
@@ -19,9 +20,9 @@ private:
     std::vector<WordEntry> words;
 
 public:
-    WordBank(const std::string& filename);
+    WordBank();
 
-    WordEntry getRandomWord() const;
+    WordEntry getRandomWord(std::string targetDifficulty);
 
     bool isEmpty() const;
 };
