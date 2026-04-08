@@ -49,4 +49,4 @@ Bash
 hangman.exe
 
 # Author
-Brent Menos - GitHub Profile
+Brent Menos
